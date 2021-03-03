@@ -89,7 +89,7 @@ d3.csv("assets/data/data.csv").then(healthData => {
         .attr("class", "d3-tip")
         .offset([80, -60])
         .html(d => {
-            return (`${d.state}<br>Poverty: ${d.poverty}<br>Healthcare: ${d.healthcare}%`)
+            return (`${d.state}<br>Poverty: ${d.poverty}%<br>Healthcare: ${d.healthcare}%`)
         });
 
     // Create tooltip in chart
