@@ -27,7 +27,7 @@ var chartGroup = svg.append("g")
 
 
 // import data
-d3.csv("data.csv").then(healthData => {
+d3.csv("../data/data.csv").then(healthData => {
 
     console.log(healthData);
 
@@ -82,4 +82,6 @@ d3.csv("data.csv").then(healthData => {
         .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
         .attr("class", "axisText")
         .text("In Poverty (%)");
+}).catch(function(error) {
+    console.log(error);
 });
