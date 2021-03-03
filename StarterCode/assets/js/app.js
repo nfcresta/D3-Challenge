@@ -67,7 +67,20 @@ d3.csv("assets/data/data.csv").then(healthData => {
         .attr("cy", d => yLinearScale(d.healthcare))
         .attr("r", "10")
         .attr("fill", "teal")
-        .attr("opacity", "0.8");
+        .attr("opacity", "0.8")
+    
+    // insert text into circles
+    var circleText = chartGroup.selectAll("text")
+        .data(healthData)
+        .enter()
+        .append("text")
+        .text(d => d.abbr)
+        .attr("x", d => xLinearScale(d.poverty))
+        .attr("y", d => yLinearScale(d.healthcare))
+        .attr("font-size", "10px")
+        .attr("text-anchor", "middle")
+        .classed("stateText", true)
+        
 
     // create labels
     chartGroup.append("text")
