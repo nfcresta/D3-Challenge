@@ -78,5 +78,8 @@ d3.csv("data.csv").then(healthData => {
         .attr("class", "axisText")
         .text("Lacks Healthcare (%)");
 
-    
+    chartGroup.append("text")
+        .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
+        .attr("class", "axisText")
+        .text("In Poverty (%)");
 });
