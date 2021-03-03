@@ -1,14 +1,14 @@
 // @TODO: YOUR CODE HERE!
 
 // create svg area
-var svgHeight = 960;
-var svgWidth = 600;
+var svgHeight = 600;
+var svgWidth = 800;
 
 // set margins
 var margin = {
     top: 50,
-    bottom: 50,
-    left: 50,
+    bottom: 100,
+    left: 100,
     right: 60
 };
 
@@ -27,7 +27,7 @@ var chartGroup = svg.append("g")
 
 
 // import data
-d3.csv("../data/data.csv").then(healthData => {
+d3.csv("assets/data/data.csv").then(healthData => {
 
     console.log(healthData);
 
@@ -39,11 +39,11 @@ d3.csv("../data/data.csv").then(healthData => {
 
     // create scale functions
     var xLinearScale = d3.scaleLinear()
-        .domain(d3.extent(healthData, d => d.poverty))
+        .domain([d3.min(healthData, d => d.poverty * 0.8), d3.max(healthData, d => d.poverty * 1.2)])
         .range([0, width]);
 
     var yLinearScale = d3.scaleLinear()
-        .domain([0, d3.max(healthData, d => d.healthcare)])
+        .domain([0, d3.max(healthData, d => d.healthcare * 1.2)])
         .range([height, 0]);
 
     // create axis functions
