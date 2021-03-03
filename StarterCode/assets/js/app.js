@@ -35,6 +35,8 @@ d3.csv("assets/data/data.csv").then(healthData => {
     healthData.forEach(data => {
         data.poverty = +data.poverty;
         data.healthcare = +data.healthcare;
+        data.age = +data.age;
+        data.smokes = +data.smokes;
     })
 
     // create scale functions
@@ -66,33 +68,53 @@ d3.csv("assets/data/data.csv").then(healthData => {
         .attr("cx", d => xLinearScale(d.poverty))
         .attr("cy", d => yLinearScale(d.healthcare))
         .attr("r", "10")
-        .attr("fill", "teal")
-        .attr("opacity", "0.8")
+        .attr("class", "stateCircle")
+        .attr("opacity", ".8")
     
     // insert text into circles
     var circleText = chartGroup.selectAll("text")
+        .exit() 
         .data(healthData)
         .enter()
         .append("text")
         .text(d => d.abbr)
         .attr("x", d => xLinearScale(d.poverty))
         .attr("y", d => yLinearScale(d.healthcare))
-        .attr("font-size", "10px")
+        .attr("font-size", "8px")
         .attr("text-anchor", "middle")
-        .classed("stateText", true)
+        .attr("class", "stateText")
+
+    // initialize tooltop
+    var toolTip = d3.tip()
+        .attr("class", "d3-tip")
+        .offset([80, -60])
+        .html(d => {
+            return (`${d.state}<br>Poverty: ${d.poverty}<br>Healthcare: ${d.healthcare}%`)
+        });
+
+    // Create tooltip in chart
+    chartGroup.call(toolTip)
+
+    // create tooltip event listeners
+    circles.on("mouseover", d => {
+        toolTip.show(d, this);
+    })
+        .on("mouseout", d => {
+            toolTip.hide(d)
+        });
         
 
     // create labels
     chartGroup.append("text")
         .attr("transform", "rotate(-90)")
         .attr("y", 0 - margin.left + 40)
-        .attr("x", 0 - (height/1.5))
+        .attr("x", 0 - (height / 1.5))
         .attr("dy", "1em")
         .attr("class", "axisText")
         .text("Lacks Healthcare (%)");
 
     chartGroup.append("text")
-        .attr("transform", `translate(${width/2.5}, ${height + margin.top})`)
+        .attr("transform", `translate(${width / 2.5}, ${height + margin.top})`)
         .attr("class", "axisText")
         .text("In Poverty (%)");
 }).catch(function(error) {
