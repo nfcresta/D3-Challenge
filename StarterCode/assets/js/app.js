@@ -177,7 +177,7 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
         .append("circle")
         .attr("cx", d => xLinearScale(d[chosenXAxis]))
         .attr("cy", d => yLinearScale(d[chosenYAxis]))
-        .attr("r", 10)
+        .attr("r", 15)
         .classed("stateCircle", true);
 
     // insert text into circles
